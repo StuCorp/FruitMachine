@@ -5,4 +5,14 @@ package com.example.stuartbryce.fruitmachine;
  */
 
 public class Player {
+
+    int money;
+
+    public Player(int money){
+        this.money = money;
+    }
+
+    public void receiveMoney(int payOut){
+        this.money += payOut;
+    }
 }

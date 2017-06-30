@@ -14,6 +14,7 @@ public class Wheel {
 
     public Wheel(){
         this.wheel = new ArrayList<>();
+        fillWheel();
     }
 
     public void fillWheel(){
@@ -26,6 +27,18 @@ public class Wheel {
         return this.wheel.get(0);
     }
 
+    public Fruit getNextFruit(){
+        return this.wheel.get(wheel.size()-1);
+    }
+
+    public Fruit getLastFruit(){
+        return this.wheel.get(1);
+    }
+
+
+    public ArrayList<Fruit> getWheel() {
+        return wheel;
+    }
 }
 
 
