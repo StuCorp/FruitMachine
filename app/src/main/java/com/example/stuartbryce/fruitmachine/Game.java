@@ -30,8 +30,21 @@ public class Game {
 
     public void run() {
         machine.spinAll();
+        viewer.printCurrentPosition(wheels);
         viewer.welcome();
-        while (game) {
+
+        while (!moneyInMachine()) {
+            viewer.status(player, machine);
+            viewer.moneyPlease();
+            int bettingMoney = UserInput.putMoneyIn(player);
+            machine.addMoney(bettingMoney);
+            player.removeMoney(bettingMoney);
+        }
+        viewer.thanks();
+        viewer.status(player, machine);
+
+
+        while (moneyInMachine()) {
 //            while (machine.userMoney > 0)
             play();
         }
@@ -39,16 +52,21 @@ public class Game {
     }
 
     public void play() {
-        while(!(win)){
+        while (!(win)) {
             pull();
-            boolean win = machine.checkForWin();
+            win = machine.checkForWin();
+            if (win) {
+                viewer.youWin();
+                machine.payPlayer(player);
+            }
+            if(!win){
+
+            }
+            viewer.status(player, machine);
+            win = false;
+
         }
 
-        if (win) {
-            viewer.youWin();
-            machine.payPlayer(player);
-        }
-        System.exit(0);
 
     }
 
@@ -63,6 +81,10 @@ public class Game {
         } else {
             this.game = false;
         }
+    }
+
+    public boolean moneyInMachine(){
+        return (machine.getUserMoney() > 1);
     }
 
 }

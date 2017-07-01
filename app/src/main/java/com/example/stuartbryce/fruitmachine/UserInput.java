@@ -11,14 +11,14 @@ public class UserInput {
     public static int getUserInt() {
         Scanner sc = new Scanner(System.in);
         int answer;
-        do {
+//        do {
 //            System.out.println("choose! choose! choose!");
             while (!sc.hasNextInt()) {
                 System.out.println("number!");
                 sc.next();
             }
             answer = sc.nextInt();
-        } while (!(answer > 0 && answer < 10));
+//        } while (!(answer > 0 && answer < 10));
         return answer;
     }
 
@@ -39,6 +39,14 @@ public class UserInput {
     public static String getString() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine().toLowerCase();
+    }
+
+    public static int putMoneyIn(Player player) {
+        int amount = 0;
+        while (((amount < 1) || (amount > player.getMoneyAmount()))) {
+            amount = getUserInt();
+        }
+        return amount;
     }
 }
 

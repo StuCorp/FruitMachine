@@ -2,16 +2,28 @@ package com.example.stuartbryce.fruitmachine;
 
 import java.util.ArrayList;
 
+import fruitSelections.Fruit;
+
 /**
  * Created by stuartbryce on 2017-06-30.
  */
 
 public class Viewer {
 
+    Player player;
+    Machine machine;
+    ArrayList<Wheel> wheels;
 
-    public int printCurrentPosition(ArrayList<Wheel> wheels){
+    public Viewer(Player player, Machine machine){
+        this.player = player;
+        this.machine = machine;
+        this.wheels = machine.getWheels();
+    }
+
+
+    public void printCurrentPosition(ArrayList<Wheel> wheels){
         for (Wheel wheel : wheels){
-            System.out.print(wheel.getNextFruit ());
+            System.out.print(wheel.getLastFruit ());
             System.out.print(" | ");
         }
         System.out.println();
@@ -24,10 +36,10 @@ public class Viewer {
 
 
         for (Wheel wheel : wheels){
-            System.out.print(wheel.getLastFruit());
+            System.out.print(wheel.getNextFruit());
             System.out.print(" | ");
         }
-        return 1;
+        System.out.println();
     }
 
     public void pull() {
@@ -40,6 +52,26 @@ public class Viewer {
     }
 
     public void youWin() {
+        System.out.println("********************************");
         System.out.println("You've money an amount of money!");
+        System.out.println("********************************");
+    }
+
+    public void moneyPlease() {
+        System.out.println("£1 per spin. Enter an amount.");
+    }
+
+    public void status(Player player, Machine machine) {
+        System.out.print(String.format("Your Wallet: £%d", player.getMoneyAmount()));
+        System.out.print(" | ");
+        System.out.print(String.format("In machine: £%d", machine.getUserMoney()));
+        System.out.print(" | ");
+        System.out.print(String.format("Your earnings so far: £%d", machine.getPayOutTracker()));
+        System.out.println(" | ");
+
+    }
+
+    public void thanks() {
+        System.out.println("Thanks!");
     }
 }

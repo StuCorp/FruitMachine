@@ -15,4 +15,13 @@ public class Player {
     public void receiveMoney(int payOut){
         this.money += payOut;
     }
+
+    public int getMoneyAmount(){
+        Integer money = new Integer(this.money);
+        return money;
+    }
+
+    public void removeMoney(int bettingMoney) {
+        this.money -= bettingMoney;
+    }
 }

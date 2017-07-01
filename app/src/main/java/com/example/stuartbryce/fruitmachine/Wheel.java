@@ -39,6 +39,10 @@ public class Wheel {
     public ArrayList<Fruit> getWheel() {
         return wheel;
     }
+
+    public void setFruitAtZeroIndex(Fruit fruit){
+        this.wheel.set(0,fruit);
+    }
 }
 
 
