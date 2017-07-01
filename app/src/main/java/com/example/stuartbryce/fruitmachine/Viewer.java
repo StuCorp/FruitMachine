@@ -44,7 +44,7 @@ public class Viewer {
 
     public void pull() {
         System.out.println();
-        System.out.println("Hit enter to pull or type 'quit' to quit");
+        System.out.println("Hit enter to pull!");
     }
 
     public void welcome() {
@@ -67,6 +67,10 @@ public class Viewer {
         System.out.print(String.format("In machine: £%d", machine.getUserMoney()));
         System.out.print(" | ");
         System.out.print(String.format("Your earnings so far: £%d", machine.getPayOutTracker()));
+        System.out.println(" | ");
+        System.out.print(String.format("Nudges: %d", machine.getNudges()));
+        System.out.print(" | ");
+        System.out.print(String.format("Holds: %d", machine.getHoldsNum()));
         System.out.println(" | ");
 
     }
@@ -97,5 +101,35 @@ public class Viewer {
             System.out.println(String.format("Holding wheel %d", wheelNum +1));
         }
         System.out.println("Hit enter to spin");
+    }
+
+
+    public void whatYouGot() {
+        System.out.print("You have ");
+        System.out.print(String.format("Nudges: %d", machine.getNudges()));
+        System.out.print(" | ");
+        System.out.print(String.format("Holds: %d", machine.getHoldsNum()));
+        System.out.println(" | ");
+    }
+
+    public void options() {
+        System.out.println();
+        System.out.print("Your options are ");
+        if (machine.getNudges() > 0) {
+            System.out.print("1) Nudge");
+            System.out.print(" | ");
+        }
+        if (machine.getHoldsNum() > 0) {
+            System.out.print("2) Hold");
+            System.out.print(" | ");
+        }
+        System.out.print("3) Nope");
+        System.out.println(" | ");
+
+    }
+
+    public void keepPlaying() {
+        System.out.println("Do you want to keep playing?");
+        System.out.println("'nope' to quit or enter to carry on");
     }
 }

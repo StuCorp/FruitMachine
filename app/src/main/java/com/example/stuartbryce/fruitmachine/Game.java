@@ -3,6 +3,7 @@ package com.example.stuartbryce.fruitmachine;
 import java.util.ArrayList;
 
 import static com.example.stuartbryce.fruitmachine.UserInput.getString;
+import static com.example.stuartbryce.fruitmachine.UserInput.getUserInt;
 
 /**
  * Created by stuartbryce on 2017-06-30.
@@ -17,6 +18,8 @@ public class Game {
     Boolean game;
     ArrayList<Wheel> wheels;
     Boolean win;
+    boolean stayInLoop;
+    boolean keepPlaying;
 
 
     public Game(Player player, Machine machine, Viewer viewer) {
@@ -26,6 +29,7 @@ public class Game {
         this.game = true;
         this.wheels = machine.getWheels();
         this.win = false;
+        this.keepPlaying = true;
     }
 
     public void run() {
@@ -44,7 +48,7 @@ public class Game {
         viewer.status(player, machine);
 
 
-        while (moneyInMachine()) {
+        while (moneyInMachine() && keepPlaying) {
 //            while (machine.userMoney > 0)
             play();
         }
@@ -52,27 +56,62 @@ public class Game {
     }
 
     public void play() {
-        while (!(win)) {
-            pull();
+        stayInLoop = true;
+//        while (!(win)) {
+        pull();
+        win = machine.checkForWin();
+        if (win) {
+            winScenario();
+        }
+
+        while ((machine.getHoldsNum() > 0 || machine.getNudges() > 0) && stayInLoop && !win) {
+            viewer.whatYouGot();
+            viewer.options();
+            int choice = UserInput.getUserInt();
+            switch (choice) {
+                case 1:
+                    nudge();
+                    break;
+                case 2:
+                    hold();
+                    break;
+                case 3:
+                    stayInLoop = false;
+                    break;
+                default:
+                    stayInLoop = false;
+                    break;
+            }
+            viewer.printCurrentPosition();
             win = machine.checkForWin();
             if (win) {
                 winScenario();
             }
-            if(!win){
-                nudge();
-                viewer.printCurrentPosition();
-            }
+        }
 
-            if(!win){
-                hold();
-                viewer.printCurrentPosition();
-            }
-            if (win) {
-                winScenario();
-            }
+        viewer.status(player, machine);
+        win = false;
+        keepGaming();
+    }
 
-            viewer.status(player, machine);
-            win = false;
+
+//            if(!win){
+//                nudge();
+//                viewer.printCurrentPosition();
+//            }
+//
+//            if(!win){
+//                hold();
+//                viewer.printCurrentPosition();
+//            }
+
+
+
+    private void keepGaming() {
+        viewer.keepPlaying();
+        String answer = UserInput.getString();
+        if (answer.equals("nope")){
+            keepPlaying = false;
         }
     }
 

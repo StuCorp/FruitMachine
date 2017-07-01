@@ -22,6 +22,7 @@ public class Machine {
     private int cashSupply;
     private int userMoney;
     private int payOutTracker;
+    private int holdsNum;
 
 
     public Machine() {
@@ -29,7 +30,7 @@ public class Machine {
         wheel2 = new Wheel();
         wheel3 = new Wheel();
         this.wheels = new ArrayList<>(Arrays.asList((Wheel) wheel1, wheel2, wheel3));
-        this.nudges = 0;
+        this.nudges = 2;
         this.holds = 2;
         this.cashSupply = 100;
         this.userMoney = 0;
@@ -114,5 +115,15 @@ public class Machine {
     public int getPayOutTracker() {
         Integer payOutAmount = new Integer(payOutTracker);
         return payOutAmount;
+    }
+
+    public int getNudges() {
+        Integer nudgesNum = new Integer(nudges);
+        return nudgesNum;
+    }
+
+    public int getHoldsNum() {
+        Integer holdsNum = new Integer(holds);
+        return holdsNum;
     }
 }
