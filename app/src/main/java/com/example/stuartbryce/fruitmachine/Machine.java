@@ -91,8 +91,7 @@ public class Machine {
     }
 
     public void payPlayer(Player player) {
-//        checkValue of enum eventually
-        int amount = 5;
+        int amount = wheel1.getCurrentFruit().getWinAMount();
         player.receiveMoney(amount);
         this.cashSupply -= amount;
         this.payOutTracker += amount;
@@ -125,5 +124,17 @@ public class Machine {
     public int getHoldsNum() {
         Integer holdsNum = new Integer(holds);
         return holdsNum;
+    }
+
+    public void loseCredit() {
+        this.userMoney--;
+    }
+
+    public void deductNudge() {
+        this.nudges--;
+    }
+
+    public void deductHold() {
+        this.holds--;
     }
 }

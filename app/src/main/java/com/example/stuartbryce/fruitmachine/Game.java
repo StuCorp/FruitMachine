@@ -65,7 +65,7 @@ public class Game {
         }
 
         while ((machine.getHoldsNum() > 0 || machine.getNudges() > 0) && stayInLoop && !win) {
-            viewer.whatYouGot();
+            viewer.status(player, machine);
             viewer.options();
             int choice = UserInput.getUserInt();
             switch (choice) {
@@ -82,7 +82,6 @@ public class Game {
                     stayInLoop = false;
                     break;
             }
-            viewer.printCurrentPosition();
             win = machine.checkForWin();
             if (win) {
                 winScenario();
@@ -93,17 +92,6 @@ public class Game {
         win = false;
         keepGaming();
     }
-
-
-//            if(!win){
-//                nudge();
-//                viewer.printCurrentPosition();
-//            }
-//
-//            if(!win){
-//                hold();
-//                viewer.printCurrentPosition();
-//            }
 
 
 
@@ -131,12 +119,13 @@ public class Game {
                 spin= true;
             } else {
                 wheelsToBeHeld.add(wheelToHold);
-                machine.holds--;
+                machine.deductHold();
             }
         }
         viewer.holdingWheels(wheelsToBeHeld);
         UserInput.getString();
         machine.hold(wheelsToBeHeld);
+        viewer.printCurrentPosition();
     }
 
     public void nudge(){
@@ -145,6 +134,8 @@ public class Game {
         viewer.chooseWheel();
         int choice = UserInput.getUserInt() - 1;
         machine.nudge(wheels.get(choice));
+        machine.deductNudge();
+        viewer.printCurrentPosition();
     }
 
     public void pull() {
@@ -153,6 +144,7 @@ public class Game {
         String answer = UserInput.getString();
         if (answer.equals("")) {
             machine.spinAll();
+            machine.loseCredit();
             viewer.printCurrentPosition();
 
         } else {

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import fruitSelections.Fruit;
 
+import static android.R.color.white;
+import static java.util.Arrays.asList;
+
 /**
  * Created by stuartbryce on 2017-06-30.
  */
@@ -13,33 +16,72 @@ public class Viewer {
     Player player;
     Machine machine;
     ArrayList<Wheel> wheels;
+    ArrayList<String> topRowLever;
+    ArrayList<String> midRowLever;
+    ArrayList<String> botRowLever;
+    String topLever;
+    String midLever;
+    String botLever;
 
-    public Viewer(Player player, Machine machine){
+    public Viewer(Player player, Machine machine) {
         this.player = player;
         this.machine = machine;
         this.wheels = machine.getWheels();
+        topRowLever = new ArrayList<>(asList((String) " (___)", "", "" ));
+        midRowLever = new ArrayList<>(asList((String) " / /", "(___)", "" ));
+        botRowLever = new ArrayList<>(asList((String) "/ /", "/ /", " (___)" ));
+        topLever = topRowLever.get(0);
+        midLever = midRowLever.get(0);
+        botLever = botRowLever.get(0);
     }
 
+    public void printFruitAction() {
+        for (int i = 0; i < 3; i++) {
+            topLever = topRowLever.get(i);
+            midLever = midRowLever.get(i);
+            botLever = botRowLever.get(i);
+            printCurrentPosition();
+        }
+    }
 
-    public void printCurrentPosition(){
-        for (Wheel wheel : wheels){
-            System.out.print(wheel.getLastFruit ());
+    public void printCurrentPosition() {
+        System.out.print("| ");
+        for (Wheel wheel : wheels) {
+            System.out.print(wheel.getLastFruit());
+            whiteSpace(wheel.getLastFruit());
             System.out.print(" | ");
         }
-        System.out.println();
 
-        for (Wheel wheel : wheels){
+        System.out.print(topLever);
+        System.out.println();
+        System.out.print("| ");
+
+        for (Wheel wheel : wheels) {
             System.out.print(wheel.getCurrentFruit());
+            whiteSpace(wheel.getCurrentFruit());
             System.out.print(" | ");
         }
+        System.out.print(midLever);
         System.out.println();
+        System.out.print("| ");
 
-
-        for (Wheel wheel : wheels){
+        for (Wheel wheel : wheels) {
             System.out.print(wheel.getNextFruit());
+            whiteSpace(wheel.getNextFruit());
             System.out.print(" | ");
         }
+
+        System.out.print(botLever);
         System.out.println();
+    }
+
+    private void whiteSpace(Fruit fruit) {
+        int wordLength = fruit.getWinAMount();
+        int whiteSpace = 10 - wordLength;
+        while (whiteSpace > 0) {
+            System.out.print(" ");
+            whiteSpace--;
+        }
     }
 
     public void pull() {
@@ -62,6 +104,7 @@ public class Viewer {
     }
 
     public void status(Player player, Machine machine) {
+        System.out.println();
         System.out.print(String.format("Your Wallet: £%d", player.getMoneyAmount()));
         System.out.print(" | ");
         System.out.print(String.format("In machine: £%d", machine.getUserMoney()));
@@ -98,7 +141,7 @@ public class Viewer {
 
     public void holdingWheels(ArrayList<Integer> wheelsToBeHeld) {
         for (Integer wheelNum : wheelsToBeHeld) {
-            System.out.println(String.format("Holding wheel %d", wheelNum +1));
+            System.out.println(String.format("Holding wheel %d", wheelNum + 1));
         }
         System.out.println("Hit enter to spin");
     }
@@ -129,6 +172,7 @@ public class Viewer {
     }
 
     public void keepPlaying() {
+        System.out.println();
         System.out.println("Do you want to keep playing?");
         System.out.println("'nope' to quit or enter to carry on");
     }
