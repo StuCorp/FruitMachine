@@ -18,7 +18,7 @@ public class Machine {
     private Wheel wheel3;
     private ArrayList<Wheel> wheels;
     private int nudges;
-    private int holds;
+    public int holds;
     private int cashSupply;
     private int userMoney;
     private int payOutTracker;
@@ -30,7 +30,7 @@ public class Machine {
         wheel3 = new Wheel();
         this.wheels = new ArrayList<>(Arrays.asList((Wheel) wheel1, wheel2, wheel3));
         this.nudges = 0;
-        this.holds = 0;
+        this.holds = 2;
         this.cashSupply = 100;
         this.userMoney = 0;
         this.payOutTracker = 0;

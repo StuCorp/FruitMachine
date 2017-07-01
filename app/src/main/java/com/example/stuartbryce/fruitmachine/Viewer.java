@@ -21,7 +21,7 @@ public class Viewer {
     }
 
 
-    public void printCurrentPosition(ArrayList<Wheel> wheels){
+    public void printCurrentPosition(){
         for (Wheel wheel : wheels){
             System.out.print(wheel.getLastFruit ());
             System.out.print(" | ");
@@ -73,5 +73,29 @@ public class Viewer {
 
     public void thanks() {
         System.out.println("Thanks!");
+    }
+
+    public void printWheelNumbers() {
+        printCurrentPosition();
+        System.out.println("Wheel 1 | Wheel 2 | Wheel 3 ");
+    }
+
+    public void youHaveNudge() {
+        System.out.println("You have a nudge!");
+    }
+
+    public void chooseWheel() {
+        System.out.println("Please select wheel 1, 2 or 3! Or 0 to spin!");
+    }
+
+    public void youHaveHold() {
+        System.out.println("You have a hold");
+    }
+
+    public void holdingWheels(ArrayList<Integer> wheelsToBeHeld) {
+        for (Integer wheelNum : wheelsToBeHeld) {
+            System.out.println(String.format("Holding wheel %d", wheelNum +1));
+        }
+        System.out.println("Hit enter to spin");
     }
 }

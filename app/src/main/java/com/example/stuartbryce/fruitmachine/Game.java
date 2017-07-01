@@ -30,7 +30,7 @@ public class Game {
 
     public void run() {
         machine.spinAll();
-        viewer.printCurrentPosition(wheels);
+        viewer.printCurrentPosition();
         viewer.welcome();
 
         while (!moneyInMachine()) {
@@ -56,18 +56,56 @@ public class Game {
             pull();
             win = machine.checkForWin();
             if (win) {
-                viewer.youWin();
-                machine.payPlayer(player);
+                winScenario();
             }
             if(!win){
-
+                nudge();
+                viewer.printCurrentPosition();
             }
+
+            if(!win){
+                hold();
+                viewer.printCurrentPosition();
+            }
+            if (win) {
+                winScenario();
+            }
+
             viewer.status(player, machine);
             win = false;
-
         }
+    }
 
+    private void winScenario() {
+        viewer.youWin();
+        machine.payPlayer(player);
+    }
 
+    public void hold(){
+        boolean spin = false;
+        ArrayList<Integer> wheelsToBeHeld = new ArrayList<>();
+        while(machine.holds > 0 && !spin) {
+            viewer.youHaveHold();
+            viewer.chooseWheel();
+            int wheelToHold = UserInput.getUserInt() - 1;
+            if (wheelToHold == -1){
+                spin= true;
+            } else {
+                wheelsToBeHeld.add(wheelToHold);
+                machine.holds--;
+            }
+        }
+        viewer.holdingWheels(wheelsToBeHeld);
+        UserInput.getString();
+        machine.hold(wheelsToBeHeld);
+    }
+
+    public void nudge(){
+        viewer.youHaveNudge();
+        viewer.printWheelNumbers();
+        viewer.chooseWheel();
+        int choice = UserInput.getUserInt() - 1;
+        machine.nudge(wheels.get(choice));
     }
 
     public void pull() {
@@ -76,7 +114,7 @@ public class Game {
         String answer = UserInput.getString();
         if (answer.equals("")) {
             machine.spinAll();
-            viewer.printCurrentPosition(wheels);
+            viewer.printCurrentPosition();
 
         } else {
             this.game = false;
