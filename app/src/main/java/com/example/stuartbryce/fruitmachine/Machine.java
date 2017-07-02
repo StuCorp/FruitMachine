@@ -13,9 +13,7 @@ import fruitSelections.Fruit;
 
 public class Machine {
 
-    private Wheel wheel1;
-    private Wheel wheel2;
-    private Wheel wheel3;
+    private WheelSet wheelSet;
     private ArrayList<Wheel> wheels;
     private int nudges;
     public int holds;
@@ -26,13 +24,11 @@ public class Machine {
 
 
     public Machine() {
-        wheel1 = new Wheel();
-        wheel2 = new Wheel();
-        wheel3 = new Wheel();
-        this.wheels = new ArrayList<>(Arrays.asList((Wheel) wheel1, wheel2, wheel3));
-        this.nudges = 2;
-        this.holds = 2;
-        this.cashSupply = 100;
+        this.wheelSet = new WheelSet();
+        this.wheels = wheelSet.getWheels();
+        this.nudges = 0;
+        this.holds = 0;
+        this.cashSupply = 15;
         this.userMoney = 0;
         this.payOutTracker = 0;
     }
@@ -54,6 +50,11 @@ public class Machine {
         for (Wheel wheel : wheels) {
             spin(wheel);
         }
+        while (checkForWin() && cashSupply < 10) {
+            for (Wheel wheel : wheels) {
+                spin(wheel);
+            }
+        }
     }
 
     public void nudge(Wheel wheel) {
@@ -61,7 +62,7 @@ public class Machine {
     }
 
     public boolean checkForWin() {
-        if ((wheel1.getCurrentFruit() == wheel2.getCurrentFruit()) && (wheel1.getCurrentFruit() == wheel3.getCurrentFruit())) {
+        if ((wheels.get(0).getCurrentFruit() == wheels.get(1).getCurrentFruit()) && (wheels.get(0).getCurrentFruit() == wheels.get(2).getCurrentFruit())) {
             return true;
         } else {
             return false;
@@ -91,7 +92,7 @@ public class Machine {
     }
 
     public void payPlayer(Player player) {
-        int amount = wheel1.getCurrentFruit().getWinAMount();
+        int amount = wheels.get(0).getCurrentFruit().getWinAMount();
         player.receiveMoney(amount);
         this.cashSupply -= amount;
         this.payOutTracker += amount;
@@ -102,13 +103,15 @@ public class Machine {
         return cashSupply;
     }
 
-    public int getUserMoney(){
+    public int getUserMoney() {
         Integer userMoneyInMachine = new Integer(this.userMoney);
-        return  userMoneyInMachine;
+        return userMoneyInMachine;
     }
 
     public void addMoney(int moneyAdded) {
+
         userMoney += moneyAdded;
+        cashSupply += moneyAdded;
     }
 
     public int getPayOutTracker() {
@@ -136,5 +139,20 @@ public class Machine {
 
     public void deductHold() {
         this.holds--;
+    }
+
+    public void calculateNudges() {
+        Random rand = new Random();
+        int nudgeAmount = rand.nextInt(3);
+        nudges = nudgeAmount;
+    }
+
+    public void calculateHolds() {
+        Random rand = new Random();
+        int holdAmount = 0;
+        if (rand.nextInt(2) == 1) {
+            holdAmount = rand.nextInt(2);
+        }
+        holds = holdAmount * 2;
     }
 }

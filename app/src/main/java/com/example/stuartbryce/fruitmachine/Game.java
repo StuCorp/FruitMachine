@@ -34,65 +34,69 @@ public class Game {
 
     public void run() {
         machine.spinAll();
-        viewer.printCurrentPosition();
         viewer.welcome();
 
-        while (!moneyInMachine()) {
+        while(keepPlaying) {
+            while (!moneyInMachine()) {
+                askForMoney();
+            }
+            viewer.thanks();
             viewer.status(player, machine);
-            viewer.moneyPlease();
-            int bettingMoney = UserInput.putMoneyIn(player);
-            machine.addMoney(bettingMoney);
-            player.removeMoney(bettingMoney);
+            while (moneyInMachine() && keepPlaying) {
+                play();
+            }
         }
-        viewer.thanks();
+    }
+
+    private void askForMoney() {
         viewer.status(player, machine);
-
-
-        while (moneyInMachine() && keepPlaying) {
-//            while (machine.userMoney > 0)
-            play();
-        }
-
+        viewer.moneyPlease();
+        int bettingMoney = UserInput.putMoneyIn(player);
+        machine.addMoney(bettingMoney);
+        player.removeMoney(bettingMoney);
     }
 
     public void play() {
         stayInLoop = true;
-//        while (!(win)) {
         pull();
         win = machine.checkForWin();
         if (win) {
             winScenario();
         }
-
+        machine.calculateNudges();
+        machine.calculateHolds();
         while ((machine.getHoldsNum() > 0 || machine.getNudges() > 0) && stayInLoop && !win) {
-            viewer.status(player, machine);
-            viewer.options();
-            int choice = UserInput.getUserInt();
-            switch (choice) {
-                case 1:
-                    nudge();
-                    break;
-                case 2:
-                    hold();
-                    break;
-                case 3:
-                    stayInLoop = false;
-                    break;
-                default:
-                    stayInLoop = false;
-                    break;
-            }
-            win = machine.checkForWin();
-            if (win) {
-                winScenario();
-            }
+            nudgeAndHoldMenu();
         }
-
         viewer.status(player, machine);
         win = false;
         keepGaming();
     }
 
+    private void nudgeAndHoldMenu() {
+        viewer.status(player, machine);
+        viewer.holdsAndNudges();
+        viewer.options();
+        int choice = UserInput.getUserInt();
+        switch (choice) {
+            case 1:
+                nudge();
+                break;
+            case 2:
+                hold();
+                break;
+            case 3:
+                stayInLoop = false;
+                break;
+            default:
+                stayInLoop = false;
+                break;
+        }
+        win = machine.checkForWin();
+        if (win) {
+            winScenario();
+        }
+    }
 
 
     private void keepGaming() {
@@ -153,7 +157,7 @@ public class Game {
     }
 
     public boolean moneyInMachine(){
-        return (machine.getUserMoney() > 1);
+        return (machine.getUserMoney() > 0);
     }
 
 }

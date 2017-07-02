@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import fruitSelections.Fruit;
 
-import static android.R.color.white;
 import static java.util.Arrays.asList;
 
 /**
@@ -95,7 +94,7 @@ public class Viewer {
 
     public void youWin() {
         System.out.println("********************************");
-        System.out.println("You've money an amount of money!");
+        System.out.println(String.format("You've won an £%ds of money!", wheels.get(0).getCurrentFruit().getWinAMount()));
         System.out.println("********************************");
     }
 
@@ -111,11 +110,13 @@ public class Viewer {
         System.out.print(" | ");
         System.out.print(String.format("Your earnings so far: £%d", machine.getPayOutTracker()));
         System.out.println(" | ");
+    }
+
+    public void holdsAndNudges(){
         System.out.print(String.format("Nudges: %d", machine.getNudges()));
         System.out.print(" | ");
         System.out.print(String.format("Holds: %d", machine.getHoldsNum()));
         System.out.println(" | ");
-
     }
 
     public void thanks() {
@@ -132,7 +133,7 @@ public class Viewer {
     }
 
     public void chooseWheel() {
-        System.out.println("Please select wheel 1, 2 or 3! Or 0 to spin!");
+        System.out.println("Please select wheel 1, 2 or 3! Or 0 to spin if you've chosen one");
     }
 
     public void youHaveHold() {
@@ -166,7 +167,7 @@ public class Viewer {
             System.out.print("2) Hold");
             System.out.print(" | ");
         }
-        System.out.print("3) Nope");
+        System.out.print("3) Do nothing");
         System.out.println(" | ");
 
     }
