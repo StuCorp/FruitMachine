@@ -93,6 +93,7 @@ public class Viewer {
     }
 
     public void youWin() {
+        System.out.println();
         System.out.println("********************************");
         System.out.println(String.format("You've won an £%ds of money!", wheels.get(0).getCurrentFruit().getWinAMount()));
         System.out.println("********************************");
@@ -102,7 +103,7 @@ public class Viewer {
         System.out.println("£1 per spin. Enter an amount.");
     }
 
-    public void status(Player player, Machine machine) {
+    public void status() {
         System.out.println();
         System.out.print(String.format("Your Wallet: £%d", player.getMoneyAmount()));
         System.out.print(" | ");

@@ -20,7 +20,6 @@ public class Machine {
     private int cashSupply;
     private int userMoney;
     private int payOutTracker;
-    private int holdsNum;
 
 
     public Machine() {

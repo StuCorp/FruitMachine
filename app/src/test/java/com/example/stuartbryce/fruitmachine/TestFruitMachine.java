@@ -2,6 +2,7 @@ package com.example.stuartbryce.fruitmachine;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import fruitSelections.Fruit;
 
@@ -23,8 +24,8 @@ public class TestFruitMachine {
     @Before
     public void before() {
         player = new Player(20);
-        viewer = new Viewer();
         machine = new Machine();
+        viewer = new Viewer(player, machine);
         game = new Game(player, machine, viewer);
     }
 
@@ -51,5 +52,13 @@ public class TestFruitMachine {
     public void getSpinNumTest(){
         assertEquals(1, machine.getSpinNum());
     }
+//
+//    @Test
+//    public void payPlayerTest(){
+//
+//        WheelSet wheels = new WheelSet();
+//        WheelSet spyWheels = Mockito.spy(wheels);
+//        Mockito.when(spyWheels.);
+//    }
 
 }

@@ -41,7 +41,7 @@ public class Game {
                 askForMoney();
             }
             viewer.thanks();
-            viewer.status(player, machine);
+            viewer.status();
             while (moneyInMachine() && keepPlaying) {
                 play();
             }
@@ -49,7 +49,7 @@ public class Game {
     }
 
     private void askForMoney() {
-        viewer.status(player, machine);
+        viewer.status();
         viewer.moneyPlease();
         int bettingMoney = UserInput.putMoneyIn(player);
         machine.addMoney(bettingMoney);
@@ -68,13 +68,13 @@ public class Game {
         while ((machine.getHoldsNum() > 0 || machine.getNudges() > 0) && stayInLoop && !win) {
             nudgeAndHoldMenu();
         }
-        viewer.status(player, machine);
+        viewer.status();
         win = false;
         keepGaming();
     }
 
     private void nudgeAndHoldMenu() {
-        viewer.status(player, machine);
+        viewer.status();
         viewer.holdsAndNudges();
         viewer.options();
         int choice = UserInput.getUserInt();
