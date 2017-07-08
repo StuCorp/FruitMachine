@@ -22,8 +22,8 @@ public class Machine {
     private int payOutTracker;
 
 
-    public Machine() {
-        this.wheelSet = new WheelSet();
+    public Machine(WheelSet wheelSet) {
+        this.wheelSet = wheelSet;
         this.wheels = wheelSet.getWheels();
         this.nudges = 0;
         this.holds = 0;
@@ -91,7 +91,7 @@ public class Machine {
     }
 
     public void payPlayer(Player player) {
-        int amount = wheels.get(0).getCurrentFruit().getWinAMount();
+        int amount = wheels.get(0).getCurrentFruit().getJackpot();
         player.receiveMoney(amount);
         this.cashSupply -= amount;
         this.payOutTracker += amount;

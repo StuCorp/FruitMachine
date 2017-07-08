@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+
 import fruitSelections.Fruit;
 
 import static org.junit.Assert.*;
@@ -60,5 +62,12 @@ public class TestFruitMachine {
 //        WheelSet spyWheels = Mockito.spy(wheels);
 //        Mockito.when(spyWheels.);
 //    }
+
+    @Test
+    public void testFruitPackReturnPack(){
+        FruitPack fruitpack = new FruitPack();
+        ArrayList<Symbol> pack = fruitpack.getPack();
+        assertEquals("cherry", pack.get(0).getName());
+    }
 
 }

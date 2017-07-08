@@ -46,7 +46,7 @@ public class Viewer {
     public void printCurrentPosition() {
         System.out.print("| ");
         for (Wheel wheel : wheels) {
-            System.out.print(wheel.getLastFruit());
+            System.out.print(wheel.getLastFruit().getName());
             whiteSpace(wheel.getLastFruit());
             System.out.print(" | ");
         }
@@ -56,7 +56,7 @@ public class Viewer {
         System.out.print("| ");
 
         for (Wheel wheel : wheels) {
-            System.out.print(wheel.getCurrentFruit());
+            System.out.print(wheel.getCurrentFruit().getName());
             whiteSpace(wheel.getCurrentFruit());
             System.out.print(" | ");
         }
@@ -65,7 +65,7 @@ public class Viewer {
         System.out.print("| ");
 
         for (Wheel wheel : wheels) {
-            System.out.print(wheel.getNextFruit());
+            System.out.print(wheel.getNextFruit().getName());
             whiteSpace(wheel.getNextFruit());
             System.out.print(" | ");
         }
@@ -74,8 +74,8 @@ public class Viewer {
         System.out.println();
     }
 
-    private void whiteSpace(Fruit fruit) {
-        int wordLength = fruit.getWinAMount();
+    private void whiteSpace(Symbol symbol) {
+        int wordLength = symbol.getLength();
         int whiteSpace = 10 - wordLength;
         while (whiteSpace > 0) {
             System.out.print(" ");
@@ -95,7 +95,7 @@ public class Viewer {
     public void youWin() {
         System.out.println();
         System.out.println("********************************");
-        System.out.println(String.format("You've won an £%ds of money!", wheels.get(0).getCurrentFruit().getWinAMount()));
+        System.out.println(String.format("You've won an £%ds of money!", wheels.get(0).getCurrentFruit().getJackpot()));
         System.out.println("********************************");
     }
 

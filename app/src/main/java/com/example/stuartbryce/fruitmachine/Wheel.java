@@ -3,6 +3,7 @@ package com.example.stuartbryce.fruitmachine;
 import java.util.ArrayList;
 
 import fruitSelections.Fruit;
+import interfaces.Packable;
 
 /**
  * Created by stuartbryce on 2017-06-30.
@@ -10,38 +11,46 @@ import fruitSelections.Fruit;
 
 public class Wheel {
 
-    private ArrayList<Fruit> wheel;
+    private ArrayList<Symbol> wheel;
+    private ArrayList<Symbol> pack;
 
-    public Wheel(){
+    public Wheel(Packable packable){
         this.wheel = new ArrayList<>();
+        this.pack = packable.getPack();
         fillWheel();
     }
 
+//    public void fillWheel(){
+//        for (Fruit fruit : Fruit.values()){
+//            this.wheel.add(fruit);
+//        }
+//    }
+//
     public void fillWheel(){
-        for (Fruit fruit : Fruit.values()){
-            this.wheel.add(fruit);
+        for (Symbol symbol: pack){
+            this.wheel.add(symbol);
         }
     }
 
-    public Fruit getCurrentFruit(){
+    public Symbol getCurrentFruit(){
         return this.wheel.get(0);
     }
 
-    public Fruit getNextFruit(){
+    public Symbol getNextFruit(){
         return this.wheel.get(wheel.size()-1);
     }
 
-    public Fruit getLastFruit(){
+    public Symbol getLastFruit(){
         return this.wheel.get(1);
     }
 
 
-    public ArrayList<Fruit> getWheel() {
+    public ArrayList<Symbol> getWheel() {
         return wheel;
     }
 
-    public void setFruitAtZeroIndex(Fruit fruit){
-        this.wheel.set(0,fruit);
+    public void setFruitAtZeroIndex(Symbol symbol){
+        this.wheel.set(0,symbol);
     }
 }
 
