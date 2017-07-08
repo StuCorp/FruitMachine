@@ -16,10 +16,10 @@ public class WheelSet {
     private Wheel wheel3;
     private ArrayList<Wheel> wheels;
 
-    public WheelSet(Packable packable, int wheelNum){
-        wheel1 = new Wheel(packable);
-        wheel2 = new Wheel(packable);
-        wheel3 = new Wheel(packable);
+    public WheelSet(SymbolPack symbolPack, int wheelNum){
+        wheel1 = new Wheel(symbolPack);
+        wheel2 = new Wheel(symbolPack);
+        wheel3 = new Wheel(symbolPack);
         this.wheels = new ArrayList<>(Arrays.asList((Wheel) wheel1, wheel2, wheel3));
     }
 

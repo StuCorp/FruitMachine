@@ -14,9 +14,9 @@ public class Wheel {
     private ArrayList<Symbol> wheel;
     private ArrayList<Symbol> pack;
 
-    public Wheel(Packable packable){
+    public Wheel(SymbolPack symbolPack){
         this.wheel = new ArrayList<>();
-        this.pack = packable.getPack();
+        this.pack = symbolPack.getPack();
         fillWheel();
     }
 

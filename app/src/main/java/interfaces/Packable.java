@@ -13,7 +13,6 @@ public interface Packable {
 
     ArrayList<Symbol> pack = new ArrayList<>();
 
-    ArrayList<Symbol> getPack();
 
 
 }

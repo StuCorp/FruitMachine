@@ -25,6 +25,7 @@ public class HatPack extends SymbolPack {
         this.pack = new ArrayList<>(Arrays.asList((Symbol) bunnet, sombrero, bucket, cap, topHat));
     }
 
+    @Override
     public ArrayList<Symbol> getPack() {
         return pack;
     }

@@ -25,6 +25,7 @@ public class FruitPack extends SymbolPack {
         this.pack = new ArrayList<>(Arrays.asList((Symbol) cherry, seven, bar, eggplant));
     }
 
+    @Override
     public ArrayList<Symbol> getPack() {
         return pack;
     }

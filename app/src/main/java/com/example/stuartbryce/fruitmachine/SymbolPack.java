@@ -12,4 +12,7 @@ public abstract class SymbolPack implements Packable {
     ArrayList<Symbol> pack;
 
 
+    public ArrayList<Symbol> getPack() {
+        return pack;
+    }
 }
